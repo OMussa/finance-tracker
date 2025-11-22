@@ -1,0 +1,38 @@
+Week 1 Developer Notes
+Goal:
+Dump everything development related into these notes
+Problems we run into
+Resources we find
+Solutions to problems
+Etc…
+
+
+11/21/25
+We are creating an expense tracker application
+Using Python
+
+
+Dev Notes
+Login Page
+New User Account Creation page
+APP UI
+New Income Page
+Expense Page
+History Page
+
+—------------------------------------------------------------------------------------------------------------
+app/ = Python logic + routes (how the app thinks)
+
+
+templates/ = HTML pages (what the user sees)
+
+
+static/ = CSS/JS/images (how it looks & behaves visually)
+
+
+docs/ = your design + planning
+
+
+Root files = config, dependencies, and documentation
+
+—------------------------------------------------------------------------------------------------------------
