@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # app/transactions/routes.py
 
 """
@@ -47,3 +48,16 @@ def new_expense():
         User visits /transactions/expense/new
     """
     return render_template("transactions/new_expense.html")
+=======
+from flask import Blueprint, render_template
+
+transactions = Blueprint("transaction",__name__)
+
+@transactions.route("/expense")
+def expense():
+    return render_template("transactions/expense.html")
+
+@transactions.route("/income")
+def income():
+    return render_template("transactions/income.html")
+>>>>>>> origin/main
