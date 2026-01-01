@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, url_for, flash
 
 
 authBlueprint = Blueprint("auth",__name__)
@@ -21,16 +21,22 @@ def signup():
         email= email.strip()
         password = password.strip()
         if email == "":
-            return render_template("auth/signup.html", error="email is required")
-        elif password == "": 
-            return render_template("auth/signup.html", error="password is required")
-
+            flash("Email is required", "error")
+            return render_template("auth/signup.html")
+        
         elif "@" not in email:
-            return render_template("auth/signup.html", error="email must contain @")
+            flash("email must contain '@'", "error")
+            return render_template("auth/signup.html")
+
+        elif password == "": 
+            flash("Password is required", "error")
+            return render_template("auth/signup.html")
 
         elif len(password) < 8:
-            return render_template("auth/signup.html", error="password must be atleast 8 characters long")
+            flash("Password must be at least 8 characters long", "error")
+            return render_template("auth/signup.html")
 
         print(f"Your email is {email} and, your password is {password}")
         #send them to the dashboard mimicking a successful sign up attempt
+        flash("Signup successful! Welcome aboard.","success")
         return redirect(url_for("dashboard.dashboard"))
