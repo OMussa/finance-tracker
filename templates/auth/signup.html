@@ -1,6 +1,22 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <h1>Sign up</h1>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Signup | Finance Tracker{% endblock %}
+
+{% block content %}
+
+<div class="max-w-md mx-auto bg-white rounded-xl shadow p-6">
+    <h1 class="text-2xl font-semibold mb-4 text-slate-800">SignUp</h1>
+    <!-- You’ll replace this with a real form later -->
+     {% if error %}
+        <p style="color: red;"> {{error}} </p>
+     {% endif%}
+    <form method="POST" action="{{ url_for('auth.signup') }}">
+   <input type="text" name="email" placeholder="enter your email">
+<input type="password" name="password" placeholder="enter your password">
+<h3>*email must contain "@" <br>*password must be atleast 8 characters long<br>*either fields cant be empty </h3>
+    <button type="submit">Sign Up</button>
+    
+</form>
+
+</div>
+{% endblock %}
