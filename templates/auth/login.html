@@ -5,9 +5,16 @@
 {% block content %}
 <div class="max-w-md mx-auto bg-white rounded-xl shadow p-6">
     <h1 class="text-2xl font-semibold mb-4 text-slate-800">Login</h1>
-    <!-- You’ll replace this with a real form later -->
-    <p class="text-sm text-slate-600">
-        This is the login page placeholder.
-    </p>
+     {% if error %}
+        <p style="color: red;"> {{error}} </p>
+     {% endif%}
+    <form method="POST" action="{{ url_for('auth.login') }}">
+   <input type="text" name="email" placeholder="enter your email">
+<input type="password" name="password" placeholder="enter your password">
+
+    <button type="submit">Sign Up</button>
+    
+</form>
+
 </div>
 {% endblock %}
