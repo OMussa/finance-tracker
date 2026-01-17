@@ -6,6 +6,7 @@ from app.auth.routes import authBlueprint
 from app.main.routes import main
 from app.transactions.routes import transactions
 from app.extensions import db , migrate
+from app import models
 
 
 
