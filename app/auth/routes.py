@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, url_for, flash
+from app import models, extensions
 
 
 authBlueprint = Blueprint("auth",__name__)
@@ -11,15 +12,13 @@ def signup():
     if request.method == 'GET':
         return render_template("auth/signup.html")
     elif request.method =='POST':
-        #request.form throws an error and crashes if nothing is inputted .get returns "None"
-        email = request.form.get("email")
-        password = request.form.get("password")
-        if email is None:
-            email = ""
-        if password is None:
-            password = ""
-        email= email.strip()
-        password = password.strip()
+  
+        email = (request.form.get("email") or "").strip()
+        password = (request.form.get("password") or "").strip()
+        existing_email= None
+        if email != "" and "@" in email:
+            existing_email = models.users.query.filter_by(email=email).first()
+       
         if email == "":
             flash("Email is required", "error")
             return render_template("auth/signup.html")
@@ -27,7 +26,7 @@ def signup():
         elif "@" not in email:
             flash("email must contain '@'", "error")
             return render_template("auth/signup.html")
-
+        
         elif password == "": 
             flash("Password is required", "error")
             return render_template("auth/signup.html")
@@ -35,8 +34,16 @@ def signup():
         elif len(password) < 8:
             flash("Password must be at least 8 characters long", "error")
             return render_template("auth/signup.html")
+        elif existing_email:
+            flash("email already exist, try again","error")
+            return render_template("auth/signup.html")
 
-        print(f"Your email is {email} and, your password is {password}")
+
+
         #send them to the dashboard mimicking a successful sign up attempt
-        flash("Signup successful! Welcome aboard.","success")
-        return redirect(url_for("dashboard.dashboard"))
+        new_user = models.users(email=email)
+        new_user.set_password(password)
+        extensions.db.session.add(new_user)
+        extensions.db.session.commit()
+        flash("Signup successful!","success")
+        return redirect(url_for("auth.login"))
