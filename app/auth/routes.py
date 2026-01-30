@@ -1,11 +1,27 @@
-from flask import Blueprint, redirect, render_template, request, url_for, flash
+from flask import Blueprint, redirect, render_template, request, url_for, flash,session
 from app import models, extensions
+from werkzeug.security import check_password_hash
 
 
 authBlueprint = Blueprint("auth",__name__)
-@authBlueprint.route("/login")
+@authBlueprint.route("/login", methods = ['GET', 'POST'])
 def login ():
-    return render_template("auth/login.html")
+    if request.method == "GET":
+        return render_template("auth/login.html")
+    elif request.method == 'POST':
+        email = (request.form.get("email") or "").strip()
+        password = (request.form.get("password") or "").strip()
+        user = models.users.query.filter_by(email=email).first()
+        if user is None or not check_password_hash(user.password_hash, password):
+            flash("Either email or password is invalid","error")
+            return render_template("auth/login.html")
+        else:
+            session["user_id"] = user.id
+            flash("Successful login","success")
+            return redirect(url_for("main_bp.dashboard"))
+       
+        
+
 
 @authBlueprint.route("/signup",methods=['GET', 'POST'])
 def signup():
