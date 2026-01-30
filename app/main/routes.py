@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 
-main = Blueprint("dashboard",__name__)
+main = Blueprint("main_bp" ,__name__)
 
 @main.route("/dashboard")
 def dashboard():
