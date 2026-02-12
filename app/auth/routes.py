@@ -13,7 +13,7 @@ def login ():
         password = (request.form.get("password") or "").strip()
         user = models.users.query.filter_by(email=email).first()
         if user is None or not check_password_hash(user.password_hash, password):
-            flash("Either email or password is invalid","error")
+            flash("Either email or password or both is invalid","error")
             return render_template("auth/login.html")
         else:
             session["user_id"] = user.id
