@@ -7,10 +7,11 @@ from app.main.routes import main
 from app.transactions.routes import transactions
 from app.extensions import db , migrate
 from app import models
+from app.auth.decorators import load_user_into_g
 
 
 
-#creating flask app instance
+# This creates the main application object
 app = Flask(
     __name__,
     
@@ -24,6 +25,11 @@ migrate.init_app(app,db)
 app.register_blueprint(authBlueprint)
 app.register_blueprint(main)
 app.register_blueprint(transactions)
+
+
+@app.before_request
+def before_request():
+    load_user_into_g()
 
 
     

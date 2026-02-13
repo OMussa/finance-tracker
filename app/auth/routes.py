@@ -63,3 +63,11 @@ def signup():
         extensions.db.session.commit()
         flash("Signup successful!","success")
         return redirect(url_for("auth.login"))
+
+
+
+@authBlueprint.route("/logout")
+def logout():
+    session.clear()
+    flash("You successfully logged out","success")
+    return redirect(url_for("auth.login"))

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>{% block title %}Finance Tracker{% endblock %}</title>
 
-    <!-- Tailwind CDN (fine for a small project / learning) -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-100 min-h-screen">
@@ -16,12 +15,19 @@
                 Finance Tracker
             </a>
             <div class="flex gap-4 text-sm">
-                <a href="{{ url_for('auth.login') }}" class="hover:text-sky-300">Login</a>
-                <a href="{{ url_for('auth.signup') }}" class="hover:text-sky-300">Sign Up</a>
+                {% if g.user %}
+                {#     <!-- Links for logged-in users --> #}
+                <span>Logged in as: {{ g.user.email }}</span>
                 <a href="{{ url_for('main_bp.dashboard') }}" class="hover:text-sky-300">Dashboard</a>
                 <a href="{{ url_for('main_bp.history') }}" class="hover:text-sky-300">History</a>
                 <a href="{{ url_for('transaction.expense') }}" class="hover:text-sky-300">New Expense</a>
                 <a href="{{ url_for('transaction.income') }}" class="hover:text-sky-300">New Income</a>
+                <a href="{{ url_for('auth.logout') }}" class="hover:text-sky-300">Logout</a>
+                {% else %} 
+                {#     <!-- Links for users not logged in --> #}
+                <a href="{{ url_for('auth.login') }}" class="hover:text-sky-300">Login</a>
+                <a href="{{ url_for('auth.signup') }}" class="hover:text-sky-300">Sign Up</a>
+                {% endif %} 
             </div>
         </div>
     </nav>
@@ -45,7 +51,6 @@
     <!-- Page Content -->
     <main class="max-w-5xl mx-auto px-4 py-8">
         {% block content %}
-        <!-- Individual pages inject their content here -->
         {% endblock %}
     </main>
 

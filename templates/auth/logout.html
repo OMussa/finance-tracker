@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Logout | Finance Tracker{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white rounded-xl shadow p-6">
+    <h1 class="text-2xl font-semibold mb-4 text-slate-800">Login</h1>
+     {% if error %}
+        <p style="color: red;"> {{error}} </p>
+     {% endif%}
+    <form method="POST" action="{{ url_for('auth.logout') }}">
+        <input type="submit" value="logout">
+    
+</form>
+
+</div>
+{% endblock %}
