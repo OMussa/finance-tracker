@@ -1,11 +1,74 @@
 {% extends "base.html" %}
-{% block title %}Income | Finance Tracker{% endblock %}
+{% block title %}Add Income | Finance Tracker{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html>
-  <body>
-    <h1>Income Page</h1>
-  </body>
-</html>
+<div class="max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Add Income</h1>
+    
+    <form method="POST" class="bg-white rounded-xl shadow-md p-8 space-y-6">
+        
+        {# Amount Field #}
+        <div>
+            <label for="amount" class="block text-sm font-medium text-gray-700 mb-2">
+                Amount ($)
+            </label>
+            <input 
+                type="number" 
+                id="amount"
+                name="amount" 
+                step="0.01" 
+                min="0.01"
+                placeholder="1000.00"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                required
+            >
+        </div>
+        
+        {# Category Field #}
+        <div>
+            <label for="category" class="block text-sm font-medium text-gray-700 mb-2">
+                Category
+            </label>
+            <input 
+                type="text" 
+                id="category"
+                name="category" 
+                placeholder="e.g., Salary, Freelance, Investment"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                required
+            >
+        </div>
+        
+        {# Note Field (Optional) #}
+        <div>
+            <label for="note" class="block text-sm font-medium text-gray-700 mb-2">
+                Note (Optional)
+            </label>
+            <textarea 
+                id="note"
+                name="note" 
+                rows="4"
+                placeholder="Add any additional details..."
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+            ></textarea>
+        </div>
+        
+        {# Submit Button #}
+        <div class="flex gap-4">
+            <button 
+                type="submit" 
+                class="flex-1 bg-green-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-700 transition duration-200"
+            >
+                Add Income
+            </button>
+            <a 
+                href="{{ url_for('main_bp.dashboard') }}" 
+                class="flex-1 bg-gray-200 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-300 transition duration-200 text-center"
+            >
+                Cancel
+            </a>
+        </div>
+        
+    </form>
+</div>
 {% endblock %}
